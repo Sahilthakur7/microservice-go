@@ -1,19 +1,15 @@
 package main
 
 import (
-	"log"
+	"fmt"
 	"net/http"
-	"os"
-
-	"github.com/Sahilthakur7/microservice-go/handlers"
 )
 
+func myHandler (w http.ResponseWriter, r *http.Request){
+	fmt.Fprint(w, "<h1>Bunty</h1>")
+}
+
 func main() {
-	l := log.New(os.Stdout, "product-api", log.LstdFlags)
-	helloHandler := handlers.NewHello(l)
-
-	sm := http.NewServeMux()
-	sm.Handle("/", helloHandler)
-
-	http.ListenAndServe(":9090", sm)
+	http.HandleFunc("/", myHandler)
+	http.ListenAndServe(":8080", nil)
 }
